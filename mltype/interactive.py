@@ -424,9 +424,12 @@ def main_basic(text, force_perfect, output_file, instant_death, target_wpm):
     with print_section(" Statistics ", fill_char="=", add_ts=False):
         print(
             f"Accuracy: {tt.compute_accuracy():.1%}\n"
-            f"WPM: {tt.compute_wpm():.1f}"
+            f"WPM: {tt.compute_wpm():.1f}",
         )
-
+    if output_file is not None:
+        with open(output_file, 'w') as f:
+            import json
+            json.dump({'accuracy': tt.compute_accuracy(), 'wpm': tt.compute_wpm()}, f)
 
 def main_replay(
     replay_file, force_perfect, overwrite, instant_death, target_wpm
